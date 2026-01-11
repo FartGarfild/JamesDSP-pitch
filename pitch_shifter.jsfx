@@ -1,0 +1,67 @@
+Desc: Clean Pitch Shifter (Anti-Echo)
+
+slider1:0<-12,12,1>Semitones (Pitch)
+slider2:100<30,300,5>Window Size (ms)
+slider3:-120<-120,0,1>Dry Mix (dB)
+
+@init
+slider1 = 3;
+slider2 = 100;
+slider3 = -120;
+buf_size = srate * 4;
+buf_L = 0;
+buf_R = buf_size + 2;
+memset(buf_L, 0, buf_size * 2 + 10);
+write_pos = 0;
+play_pos = 0;
+
+@sample
+target_scl = 2 ^ (slider1 / 12);
+scl_smooth = scl_smooth + (target_scl - scl_smooth) * 0.001; // 0.001 - швидкість реакції
+scl = scl_smooth;
+
+win_size = (srate * slider2 / 1000) | 0;
+drymix = 2 ^ (slider3 / 6);
+step = 1 - scl;
+
+buf_L[write_pos] = spl0;
+buf_R[write_pos] = spl1;
+
+p1 = play_pos % win_size;
+p2 = (play_pos + win_size/2) % win_size;
+
+offset = win_size; 
+
+safety_margin = 100;
+max_drift = buf_size - win_size - safety_margin;
+
+r1 = (write_pos - offset + p1 * step);
+r2 = (write_pos - offset + p2 * step);
+
+r1 = (r1 % buf_size); r1 < 0 ? r1 += buf_size;
+r2 = (r2 % buf_size); r2 < 0 ? r2 += buf_size;
+
+abs(r1 - write_pos) < safety_margin ? r1 = (write_pos - safety_margin) % buf_size;
+abs(r2 - write_pos) < safety_margin ? r2 = (write_pos - safety_margin) % buf_size;
+
+r1 < 0 ? r1 += buf_size;
+r2 < 0 ? r2 += buf_size;
+
+w1 = sin(p1 / win_size * $pi);
+w2 = sin(p2 / win_size * $pi);
+
+total_w = sqrt(w1*w1 + w2*w2);
+w1 /= total_w;
+w2 /= total_w;
+
+out0 = buf_L[r1|0] * w1 + buf_L[r2|0] * w2;
+out1 = buf_R[r1|0] * w1 + buf_R[r2|0] * w2;
+
+spl0 = out0 + spl0 * drymix;
+spl1 = out1 + spl1 * drymix;
+
+play_pos += 1;
+play_pos >= win_size ? play_pos = 0;
+
+write_pos += 1;
+write_pos >= buf_size ? write_pos = 0;
