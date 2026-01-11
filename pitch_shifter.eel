@@ -17,12 +17,12 @@ play_pos = 0;
 
 @sample
 target_scl = 2 ^ (slider1 / 12);
-scl_smooth = scl_smooth + (target_scl - scl_smooth) * 0.001; // 0.001 - швидкість реакції
+scl_smooth = scl_smooth + (target_scl - scl_smooth) * 0.001;
 scl = scl_smooth;
 
 win_size = (srate * slider2 / 1000) | 0;
 drymix = 2 ^ (slider3 / 6);
-step = 1 - scl;
+step = scl - 1;
 
 buf_L[write_pos] = spl0;
 buf_R[write_pos] = spl1;
