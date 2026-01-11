@@ -1,11 +1,11 @@
 Desc: Clean Pitch Shifter (Anti-Echo)
 
-slider1:0<-12,12,1>Semitones (Pitch)
+slider1:0<-12.0,12.0,0.1>Semitones (Pitch)
 slider2:100<30,300,5>Window Size (ms)
 slider3:-120<-120,0,1>Dry Mix (dB)
 
 @init
-slider1 = 3;
+slider1 = 0.0;
 slider2 = 100;
 slider3 = -120;
 buf_size = srate * 4;
