@@ -16,3 +16,9 @@ pitch: 0
 windows size: 150
 dry mix: -120
 buffers: 4
+
+robot voice effect.
+pitch: -3
+windows size: 30
+dry mix: -5
+buffers: 32
