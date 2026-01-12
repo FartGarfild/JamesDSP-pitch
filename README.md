@@ -22,3 +22,10 @@ pitch: -3
 windows size: 30
 dry mix: -5
 buffers: 32
+
+vintage radio effect 
+pitch: any -
+windows size: 5
+dry mix: -120 (or can add vintage echo -5)
+buffers: 32
+
