@@ -60,6 +60,25 @@ Smooth: 0.001
 
 Скрипт дає **повну свободу** ручного керування — в цьому його головний прикол.
 
+## LL-Pitch_Shifter.eel (Low Latency)
+
+Це спеціальна **low-latency** версія pitch shifter'а, оптимізована для мінімальної затримки.
+
+### Основні особливості:
+- Заснований на Classic delay-line алгоритмі з lookahead
+- Значно менша затримка порівняно зі стандартною версією
+- Підходить для перегляду відео, ігор та реального часу
+- Найкращий компроміс між якістю звуку та затримкою, який можна отримати з цього методу обробки
+
+### Рекомендовані налаштування (для мінімальної затримки):
+
+- **Window Size**: 55–75 ms  
+- **Lookahead**: 18–30 ms  
+- **Buffer Quality**: 12–20
+
+Чим менші значення Window Size та Lookahead — тим нижча затримка, але тим більше артефактів (метал, пилка).  
+Оптимальний баланс зазвичай знаходиться в діапазоні 60–70 ms Window Size + 20–25 ms Lookahead.
+
 **Принцип роботи**
 Значення це множник частоти, тобто якщо значення пітч буде 4 то частоти помножаться на 4.
 
@@ -120,6 +139,26 @@ Smooth: 0.001
 The script gives **full manual control** — that's the main fun of Liveprog.
 
 ---
+
+## LL-Pitch_Shifter.eel (Low Latency)
+
+This is a **low-latency** version of the pitch shifter, optimized for minimal delay.
+
+### Key Features:
+- Based on the Classic delay-line algorithm with lookahead
+- Significantly lower latency compared to the standard version
+- Well suited for watching videos, gaming, and real-time use
+- Best compromise between sound quality and latency achievable with this pitch shifting method
+
+### Recommended Settings (for lowest latency):
+
+- **Window Size**: 55–75 ms  
+- **Lookahead**: 18–30 ms  
+- **Buffer Quality**: 12–20
+
+Smaller values of Window Size and Lookahead reduce latency further, but may introduce more artifacts (metallic sound, warble).  
+The sweet spot is usually around **60–70 ms** Window Size and **20–25 ms** Lookahead.
+
 
 **Made on a phone in one evening** 😎  
 Tested on OPPO Enco Air 4 Pro (LHDC 5.0)  
