@@ -2,21 +2,21 @@
 // Low Latency Pitch Shifter
 // ================================================
 
-slider1:0.0<-12.0,12.0,0.1>Semitones (Pitch)
-slider2:60<40,160,5>Window Size (ms)
-slider3:-120<-120,0,0.5>Dry Mix (dB)
-quality:16<8,32,4>Buffer Quality
+slider1:0<-12,12,1>Semitones (Pitch)
+slider2:70<30,200,5>Window Size (ms)
+slider3:-120<-120,0,1>Dry Mix (dB)
+quality:8<2,48,1>Buffer Quality
 
-lookahead:22<0,50,5>Lookahead (ms)
+lookahead:25<1,60,1>Lookahead (ms)
 
 @init
-slider1 = -4;
-slider2 = 60;
-slider3 = -100;
-quality = 16;
-smooth = 0.00025;
+slider1 = -0;
+slider2 = 150;
+slider3 = -120.00;
+quality = 8;
+smooth = 0.0001;
 
-lookahead = 22;
+lookahead = 60;
 
 buf_size = srate * quality;
 buf_L = 0;
